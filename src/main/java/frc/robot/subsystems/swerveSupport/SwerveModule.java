@@ -22,7 +22,7 @@ public class SwerveModule {
 
     private RelativeEncoderResetTracker relativeEncoderTracker = new RelativeEncoderResetTracker();
     private CANcoder absoluteSteerEncoder;
-    private SparkMax steerMotor;
+    private SparkFlex steerMotor;
     private SparkFlex driveMotor;
     private RelativeEncoder steerRelativeEncoder;
     private SwerveModuleConfiguration cfg;
@@ -31,13 +31,13 @@ public class SwerveModule {
     public SwerveModule(SwerveModuleConfiguration config) {
         cfg = config;
         absoluteSteerEncoder = createAbsoluteCanEncoder(cfg.steerAbsoluteEncoderCanId, cfg.steeringOffsetInRadians);
-        steerMotor = new SparkMax(cfg.steerMotorCanId, MotorType.kBrushless);
+        steerMotor = new SparkFlex(cfg.steerMotorCanId, MotorType.kBrushless);
         double temp_PosConvFactor=2.0 * Math.PI * cfg.steerReduction;
-        configureSparkMax(steerMotor, config.steerP, config.steerI, config.steerD, true, temp_PosConvFactor, temp_PosConvFactor / 60.0);
+        configureSteerMotor(steerMotor, config.steerP, config.steerI, config.steerD, true, temp_PosConvFactor, temp_PosConvFactor / 60.0);
         
         driveMotor = new SparkFlex(cfg.driveMotorCanId, MotorType.kBrushless);
         double positionConversionFactor = Math.PI * cfg.wheelDiameter * cfg.driveReduction;
-        configureSparkFlex(driveMotor, cfg.driveP, cfg.driveI, cfg.driveD, config.driveInverted, positionConversionFactor, positionConversionFactor/60);
+        configureDriveMotor(driveMotor, cfg.driveP, cfg.driveI, cfg.driveD, config.driveInverted, positionConversionFactor, positionConversionFactor/60);
         steerRelativeEncoder = steerMotor.getEncoder();
         resetSteerRelativeEncoder();
     }
@@ -80,19 +80,19 @@ public class SwerveModule {
         return driveMotor.getEncoder().getPosition();
     }
 
-    private void configureSparkMax(SparkMax motor, double proportional, double integral, 
+    private void configureSteerMotor(SparkFlex motor, double proportional, double integral, 
             double derivative, boolean inverted, double positionalConversionFactor, double velocityConversionFactor) {
-        var sparkMaxConfig = new SparkMaxConfig();
-        sparkMaxConfig
+        var SteerConfig = new SparkFlexConfig();
+        SteerConfig
             .inverted(inverted)
             .closedLoop.pid(proportional, integral, derivative);
-        sparkMaxConfig.encoder
+        SteerConfig.encoder
             .positionConversionFactor(positionalConversionFactor)
             .velocityConversionFactor(velocityConversionFactor);
-        motor.configure(sparkMaxConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        motor.configure(SteerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
-    private void configureSparkFlex(SparkFlex motor, double proportional, double integral, 
+    private void configureDriveMotor(SparkFlex motor, double proportional, double integral, 
         double derivative, boolean inverted, double posConverFactor, double velocityConvFactor) {
         var sparkMaxConfig = new SparkFlexConfig();
         sparkMaxConfig

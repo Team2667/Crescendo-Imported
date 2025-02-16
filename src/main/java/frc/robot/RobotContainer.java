@@ -151,10 +151,10 @@ public class RobotContainer {
       mailman.addOption("back", new DriveFieldRelative(drivetrain, 0, 0.15));//.withTimeout(15));
       mailman.addOption("nothing", null);
 
-      mailman.addOption("move with waypoints", createTrajectoryCommandWithWayPoints());
-      mailman.addOption("move without waypoints", createTrajectoryCommandNoWayPoints());
-      mailman.addOption("move with waypoints starting from diff location", createTrajectoryCommandStartDiffThanRobotPosition());
-      SmartDashboard.putData("autonomous mode", mailman);
+      // mailman.addOption("move with waypoints", createTrajectoryCommandWithWayPoints());
+      //mailman.addOption("move without waypoints", createTrajectoryCommandNoWayPoints());
+      //mailman.addOption("move with waypoints starting from diff location", createTrajectoryCommandStartDiffThanRobotPosition());
+      //SmartDashboard.putData("autonomous mode", mailman);
   }
   
   public Command getAutonomousCommand(){
