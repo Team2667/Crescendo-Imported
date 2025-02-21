@@ -144,6 +144,11 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putNumber("BL-angle (radians)",m_backLeftModule.getAbsoluteAngle());
         SmartDashboard.putNumber("BR-angle (radians)",m_backRightModule.getAbsoluteAngle());
 
+        SmartDashboard.putNumber("FL-absolute-ec (meters)",m_frontLeftModule.getAbsoluteEncoderReading());
+        SmartDashboard.putNumber("FR-absolute-ec (meters)",m_frontRightModule.getAbsoluteEncoderReading());
+        SmartDashboard.putNumber("BL-absolute-ec (meters)",m_backLeftModule.getAbsoluteEncoderReading());
+        SmartDashboard.putNumber("BR-absolute-ec (meters)",m_backRightModule.getAbsoluteEncoderReading());
+
         SmartDashboard.putNumber("FL-distance (meters)",m_frontLeftModule.getWheelPosition());
         SmartDashboard.putNumber("FR-distance (meters)",m_frontRightModule.getWheelPosition());
         SmartDashboard.putNumber("BL-distance (meters)",m_backLeftModule.getWheelPosition());

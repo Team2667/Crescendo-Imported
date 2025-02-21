@@ -71,6 +71,10 @@ public class SwerveModule {
         return angle;
     }
 
+    public double getAbsoluteEncoderReading(){
+        return absoluteSteerEncoder.getAbsolutePosition().getValueAsDouble();
+    }
+
     public void outputSteerAnglesToDashboard(){
         SmartDashboard.putNumber(getSteerLogLabel("Relative Encoder"), steerMotor.getEncoder().getPosition());
         SmartDashboard.putNumber(getSteerLogLabel("Absolute Encoder"), getAbsoluteAngle());

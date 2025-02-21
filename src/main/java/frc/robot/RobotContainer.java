@@ -119,6 +119,10 @@ public class RobotContainer {
       backCommand = new DriveFieldRelative(drivetrain, Math.PI, .5);
       leftCommand = new DriveFieldRelative(drivetrain, (2 * Math.PI * 3) / 4, .5);
       rightCommand = new DriveFieldRelative(drivetrain, Math.PI / 2, .5);
+      m_cmdcontroller.y().whileTrue(forwardCommand);
+      m_cmdcontroller.x().whileTrue(leftCommand);
+      m_cmdcontroller.b().whileTrue(rightCommand);
+      m_cmdcontroller.a().whileTrue(backCommand);
       resetIMUCommand = new ResetIMU(drivetrain);
 
       m_cmdcontroller.rightStick().onTrue(resetIMUCommand);
